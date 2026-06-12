@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Video Clone</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* colors used in project */
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --grey: #aaaaaa;
+            --blue: #0f79af;
+            --prime-blue-hover: #0b5e8a;
+            --nav-bg: #000000;
+            --card-bg: #162430;
+        }
+
+        /* default settings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* top navbar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            height: 72px;
+            background-color: var(--nav-bg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .leftside, .rightside {
+            display: flex;
+            align-items: center;
+        }
+
+        /* logo image */
+        .brand-logo {
+            height: 24px;
+            margin-right: 35px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links li a {
+            color: var(--grey);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover, .nav-links li a.active {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Vertical divider for the Subscriptions link */
+        .divider-link {
+            border-left: 1px solid #333;
+            margin-left: 5px;
+            padding-left: 5px;
+        }
+
+        .rightside {
+            gap: 25px;
+        }
+
+        .nav-icon {
+            color: var(--white);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-icon span {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-join {
+            background-color: var(--blue);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-join:hover {
+            background-color: var(--prime-blue-hover);
+        }
+
+        /* shared main section styles */
+        .main-section {
+            position: relative;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-size: cover;
+            background-position: center right;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid #111;
+        }
+
+        .text-part {
+            position: relative;
+            z-index: 10;
+            width: 50%;
+            padding: 0 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-part h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .text-part p {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            max-width: 500px;
+            color: #d1d1d1;
+        }
+
+        /* buttons */
+        .bttn {
+            background-color: var(--white);
+            color: var(--black);
+            border: none;
+            border-radius: 7px;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .bttn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .bttn2 {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid #fff;
+        }
+
+        .bttn2:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .subtext {
+            font-size: 0.85rem;
+            color: var(--grey);
+            text-align: center;
+            width: 100%;
+            max-width: 350px;
+            margin-bottom: 15px;
+        }
+
+        /* specific sections */
+        
+        /* first tile */
+        .first-tile {
+            /* background image */
+            background-image: linear-gradient(to right, #000000 0%, #000000 50%, transparent 65%), url('https://m.media-amazon.com/images/G/31/AmazonVideo/2019/MLP.jpg');
+        }
+
+        /* second tile */
+        .second-tile {
+            /* background image */
+            background-image: linear-gradient(to right, #000000 0%, #000000 50%, transparent 65%), url('https://m.media-amazon.com/images/G/31/AmazonVideo/2021/X-site/MLP/TVOD/TVOD_MLP_Right.jpg');
+        }
+
+        /* third section */
+        .third-section {
+            display: flex;
+            align-items: center;
+            min-height: 80vh;
+            padding: 0 60px;
+            background-color: #000;
+        }
+
+        .third-left {
+            width: 45%;
+            padding-right: 40px;
+        }
+
+        .third-left h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .third-left p {
+            font-size: 1.2rem;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .third-right {
+            width: 55%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 700px;
+        }
+        
+        .card {
+            /* A sleek, dark, cinematic gradient */
+            background: linear-gradient(135deg, #246491, #061e38);
+            border-radius: 10px;
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff; /* Explicitly setting the white font color */
+            font-weight: 800;
+            font-size: 1.4rem;
+            text-align: center;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+            border: 1px solid #1a3b5c; /* Subdued blue border */
+            padding: 15px;
+        }
+        
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.8);
+            border-color: #ffffff;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* footer section */
+        footer {
+            background-color: #111111;
+            padding: 50px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .links a {
+            color: #5599ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        footer p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="topbar">
+        <div class="leftside">
+            <img src="https://m.media-amazon.com/images/G/01/digital/video/web/logo-min-remaster.png" alt="Prime Video" class="brand-logo" style="width: 100px; height: auto; border: 1px solid #333; /* remove border when you add real logo */">
+            
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">TV shows</a></li>
+                <li><a href="#">Live TV</a></li>
+                <li class="divider-link"><a href="#"><i class="fa-solid fa-border-all"></i> Subscriptions</a></li>
+            </ul>
+        </div>
+        <div class="rightside">
+            <div class="nav-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            <div class="nav-icon"><i class="fa-solid fa-globe"></i> <span>EN</span> <i class="fa-solid fa-chevron-down" style="font-size: 10px;"></i></div>
+            <div class="nav-icon"><i class="fa-solid fa-circle-user" style="font-size: 24px;"></i></div>
+            <button class="btn-join">Join Prime</button>
+        </div>
+    </nav>
+
+    <section class="main-section first-tile">
+        <div class="text-part">
+            <h1>Welcome to Prime Video</h1>
+            <p>Watch the latest movies, TV shows, and award-winning Amazon Originals</p>
+            
+            <button class="bttn">Join Prime Lite at ₹799/year</button>
+            <div class="subtext">Effectively ₹67/month</div>
+            
+            <button class="bttn">Join Prime Annual at ₹1499/year</button>
+            <div class="subtext">Effectively ₹125/month</div>
+            
+            <button class="bttn">Join Prime Monthly at ₹299/month</button>
+            <div class="subtext" style="margin-bottom: 25px;">&nbsp;</div>
+            
+            <button class="bttn bttn2">Compare All Plans</button>
+        </div>
+    </section>
+
+    <section class="main-section second-tile">
+        <div class="text-part">
+            <h1>Movie rentals on Prime<br>Video</h1>
+            <p>Early Access to new movies, before digital subscription</p>
+            <br>
+            <button class="bttn" style="max-width: 200px;">Rent now</button>
+        </div>
+    </section>
+
+    <section class="third-section">
+        <div class="third-left">
+            <h1>Your favorite subscriptions all in one place</h1>
+            <p>Customers can subscribe to get access to a variety of premium and specialty content, easily accessible within the Prime Video app.</p>
+        </div>
+        
+        <div class="third-right">
+            <div class="card-grid">
+                <div class="card">Apple TV</div>
+                <div class="card">Movie<br>Sphere+</div>
+                <div class="card" >Lionsgate<br>Play</div>
+                
+                <div class="card" >Goldmines</div>
+                <div class="card">Anime Times</div>
+                <div class="card" >manoramaMAX</div>
+                
+                <div class="card" style="font-family: serif;">CHAUPAL</div>
+                <div class="card">BBC<br>PLAYER</div>
+                <div class="card">League Pass</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <img src="https://m.media-amazon.com/images/G/01/digital/video/web/logo-min-remaster.png" alt="Prime Video Logo" style="height: 20px; filter: grayscale(100%) opacity(0.5);">
+        <div class="links">
+            <a href="#">Terms and Privacy Notice</a>
+            <a href="#">Send us feedback</a>
+            <a href="#">Help</a>
+        </div>
+        <p>© 1996-2026, Amazon.com, Inc. or its affiliates</p>
+    </footer>
+
+</body>
+</html>
